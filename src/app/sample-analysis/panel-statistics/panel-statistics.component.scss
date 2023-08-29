@@ -1,0 +1,18 @@
+.bottom-panel {
+    position: fixed;
+    width: 1000px;
+    margin-left: -500px; //should be -1/2 the width
+    bottom: -20px;
+    left: 50%;
+    z-index: 500;
+
+    border: solid rgb(177, 177, 177) 1px;
+    background: #fff;
+    border-radius: 8px 8px 0 0;
+    transition: transform 500ms ease-in-out;
+    box-shadow: 0 8px 10px -5px rgba(0, 0, 0, .2), 0 16px 24px 2px rgba(0, 0, 0, .14), 0 6px 30px 5px rgba(0, 0, 0, .12);
+}
+
+.bottom-panel:hover {
+    transform: translateY(-35%);
+}

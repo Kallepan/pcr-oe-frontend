@@ -1,0 +1,33 @@
+<div #TABLE *ngIf="(activeElements$ | async) as activeElements">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container [matColumnDef]="col.key" *ngFor="let col of columnsSchema">
+            <th mat-header-cell *matHeaderCellDef> {{col.label}} </th>
+            <td mat-cell *matCellDef="let element; let idx = index">
+                <ng-container [ngSwitch]="col.key">
+                    <!-- this is a bit stupid but it works :D -->
+                    <div *ngSwitchCase="'idx'">
+                        {{idx+lastIndex}}.
+                    </div>
+                    <div *ngSwitchCase="'ready_mix'">
+                        <mat-checkbox [checked]="element.panel?.ready_mix"></mat-checkbox>
+                    </div>
+                    <div *ngSwitchCase="'panel'">
+                        {{element.panel?.display_name}}
+                    </div>
+                    <div *ngSwitchCase="'sample'">
+                        {{element.sample?.displaySampleId || element.description}}<br />
+                        {{element.sample?.full_name}} {{element.sample?.material}}
+                    </div>
+                    <div *ngSwitchCase="'actions'">
+                        <button mat-icon-button color="warn" (click)="removeElementFromActiveList(element)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </ng-container>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>

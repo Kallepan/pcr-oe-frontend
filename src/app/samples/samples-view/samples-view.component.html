@@ -1,0 +1,60 @@
+<div class="container">
+    <h2>Probe Anlegen</h2>
+    <form [formGroup]="sampleForm" class="form-container" (keydown.enter)="$event.stopPropagation()">
+        <div class="row">
+            <mat-form-field>
+                <mat-label>Molis Nr.</mat-label>
+                <input matInput placeholder="4900 000000 02" formControlName="sample_id" autocomplete="off">
+                <mat-error *ngIf="sampleForm.get('sample_id')?.hasError('required')">
+                    Molis Nr. ist erforderlich
+                </mat-error>
+                <mat-error *ngIf="sampleForm.get('sample_id')?.hasError('pattern')">
+                    Molis Nr. darf nur 8 oder 12 Ziffern enthalten
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input matInput placeholder="Nachname, Vorname" formControlName="full_name">
+                <mat-error *ngIf="sampleForm.get('full_name')?.hasError('required')">
+                    Name ist erforderlich
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Geburtsdatum</mat-label>
+                <input formControlName="birthdate" matInput [matDatepicker]="picker" placeholder="1960-03-22" autocomplete="off">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="sampleForm.get('birthdate')?.hasError('required')">
+                    Geburtsdatum ist erforderlich
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Material</mat-label>
+                <input formControlName="material" matInput placeholder="Sputum, BAL, etc." autocomplete="off">
+                <mat-error *ngIf="sampleForm.get('material')?.hasError('required')">
+                    Material ist erforderlich
+                </mat-error>
+                <mat-error *ngIf="sampleForm.get('material')?.hasError('pattern')">
+                    Material darf nur 3 bis 10 Großbuchstaben enthalten
+                </mat-error>       
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field>
+                <mat-label>Kommentar</mat-label>
+                <input matInput placeholder="Kommentar" formControlName="comment">
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <button type="button" mat-raised-button color="accent" (click)="onPickAnalysisClick()" matTooltip="Analysen auswählen">Analysen</button>
+        </div>
+    </form>
+    <small>Proben ohne Analysen werden alsbald gelöscht.</small>
+    <hr />
+    <h2>Aktive Proben</h2>
+    <small>Es werden alle Proben angezeigt die jünger als 14 Tage alt sind</small>
+    <mat-action-list *ngIf="(samples$ | async) as samples">
+        <app-sample-table [samples]="samples"
+            (onDeleteSample)="onDeleteSampleClick($event.sample_id)" (onEditSample)="onSampleEditClick($event)"></app-sample-table>
+    </mat-action-list>
+</div>

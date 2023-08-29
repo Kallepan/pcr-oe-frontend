@@ -1,0 +1,31 @@
+<form action="submit" [formGroup]="controlFormGroup" class="form">
+    <div class="row">
+        <div>
+            <label>Kontrolltyp</label>
+            <mat-radio-group class="radio-buttons" formControlName="typeControl">
+                <mat-radio-button *ngFor="let typ of getTypes()" [value]="typ">{{typ}}</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div>
+            <label>Analyt</label>
+            <mat-radio-group class="radio-buttons" formControlName="analytControl" (change)="toggleCustomForm($event)">
+                <mat-radio-button *ngFor="let analyt of getAnalytes()" [value]="analyt">{{analyt}}</mat-radio-button>
+                <mat-radio-button value="custom">Custom</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div>
+        </div>
+    </div>
+    
+    <mat-form-field>
+        <mat-label>Custom Kontrolle</mat-label>
+        <input matInput formControlName="customControl" autocomplete="off">
+        <mat-hint></mat-hint>
+        <mat-error *ngIf="controlFormGroup.get('customControl')?.hasError('pattern')">
+            Das Feld darf nur Grossbuchstaben enthalten.
+        </mat-error>
+    </mat-form-field> 
+    <button mat-mini-fab (click)="addControl()" color="accent" [disabled]="controlFormGroup.invalid"><mat-icon>add</mat-icon></button>
+    <br />
+    <br />
+</form>

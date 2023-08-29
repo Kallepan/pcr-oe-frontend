@@ -1,0 +1,46 @@
+<div class="container">
+    <div *ngIf="(inactiveSamplesAnalyses$ | async) as samplesAnalyses">
+        <div class="left">
+            <h2>Verfügbare Proben mit offenen Analysen</h2>
+            <mat-hint><small>Probe anklicken um sie zum Lauf hinzuzufügen.</small></mat-hint>
+            <br />
+            
+            <mat-tab-group dynamicHeight>
+                <mat-tab label="Proben">
+                    <mat-form-field class="filter-form">
+                        <mat-icon matPrefix>search</mat-icon>
+                        <input matInput type="text" placeholder="CMVQPA..." [ngModel]="filter | async"
+                            (ngModelChange)="filter.next($event)">
+                        <mat-hint><small>Durchsuchen nach Tagesnummer, Analyt, Material, Assay</small></mat-hint>
+                    </mat-form-field>
+        
+                    <mat-progress-bar *ngIf="isLoading()" mode="indeterminate"></mat-progress-bar>
+                    <div style="visibility: hidden;">{{filter$ | async}}</div>
+                    <mat-action-list>
+                        <div *ngFor="let sampleAnalysis of samplesAnalyses; let i = index;">
+                            <div *ngIf="sampleAnalysis.visible">
+                                <mat-divider *ngIf="i > 0"></mat-divider>
+                                <button class="large-button" mat-list-item
+                                    (click)="activateSampleAnalysis(sampleAnalysis)">
+                                    {{ sampleAnalysis.sample.displaySampleId }} - {{ sampleAnalysis.panel.panel_id }} ({{sampleAnalysis.sample.material}})<br>
+                                    <small>{{ sampleAnalysis.sample.full_name }}, erstellt am: {{ sampleAnalysis.created_at |
+                                        dateFormat }}</small>
+                                </button>
+                            </div>
+                        </div>
+                    </mat-action-list>
+                </mat-tab>
+                <mat-tab label="Kontrollen/Kalibratoren">
+                    <app-create-control (addControlRequest)="addControl($event)"></app-create-control>
+                </mat-tab>
+            </mat-tab-group>
+            <br />
+            <br />
+        </div>
+        <div class="right">
+            <h2>Aktueller Lauf</h2>
+            <app-sample-analysis-form></app-sample-analysis-form>
+            <app-panel-statistics></app-panel-statistics>
+        </div>
+    </div>
+</div>

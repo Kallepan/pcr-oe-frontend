@@ -1,0 +1,17 @@
+.form-container {
+    margin: 1rem;
+
+    .title {
+        text-align: center;
+    }
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .large-form {
+        min-width: 500px;
+    }
+}

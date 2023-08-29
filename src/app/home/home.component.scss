@@ -1,0 +1,51 @@
+.center {
+    display: flex;
+    margin-top: 5rem;
+}
+.header {
+    margin: auto;
+    text-align: center;
+}
+.container {
+    margin: auto;
+    display: flex;
+    flex-direction: column-reverse;
+
+    .card {
+        position: relative;
+        display: block;
+        overflow: hidden;
+        background: linear-gradient(135deg, var(--card-color1), var(--card-color2));
+        box-shadow: 2px 2px 0 2px var(--card-color3), 20px 10px 50px rgba(0, 0, 0, 0.5);
+        width: 300px;
+        height: 150px;
+        transform: rotate3d(1, -0.35, 1, 30deg);
+        transition: transform 300ms;
+        color: var(--text-color);
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            bottom: -50%;
+            left: 0;
+            width: 80%;
+            opacity: 0;
+            transition: transform 100ms 300ms, opacity 300ms;
+        }
+
+        &:not(:last-child) {
+            margin-top: -3rem;
+        }
+
+        &:hover {
+            transform: translate(-40px, 40px) rotate3d(1, -0.3, 0.5, 30deg);
+
+            &::after {
+                opacity: 1;
+                transform: translateX(150%) rotate(-20deg);
+                transition: transform 1s 280ms;
+            }
+        }
+    }
+}

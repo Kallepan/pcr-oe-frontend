@@ -1,0 +1,30 @@
+.container {
+    max-width: 100%;
+    margin: 0 50px;
+
+    .left {
+        width: 35%;
+        float: left;
+        margin-right: 1rem;
+    }
+    .right {
+        width: 60%;
+        float: right;
+    }
+}
+
+.row {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1rem;
+
+    .large-button {
+        max-width: 50%;
+        margin: 0;
+    }
+}
+
+.filter-form {
+    margin: 1rem 0px;
+    min-width: 100%;
+}

@@ -1,0 +1,52 @@
+<div id="container">
+    <mat-form-field class="large-form-field">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Tagesnummer, Name..." type="text" autocomplete="off">
+    </mat-form-field>
+    <table mat-table [dataSource]="dataSource" class="table">
+        <ng-container [matColumnDef]="col.key" *ngFor="let col of columnsSchema">
+            <th mat-header-cell *matHeaderCellDef> {{col.label}} </th>
+            <td mat-cell *matCellDef="let element; let i = index;">
+                <ng-container [ngSwitch]="col.key">
+                    <div *ngSwitchCase="'idx'">
+                        {{i + 1}}.
+                    </div>
+                    <div *ngSwitchCase="'sample_id'">
+                        <strong>{{element.displaySampleId}}</strong><br />
+                        {{element.full_name}}
+                    </div>
+                    <div *ngSwitchCase="'sputalysed'">
+                        <button mat-raised-button color="accent" (click)="toggleSputasol(element)"
+                            matTooltip="Klicken zum Ändern">{{element.sputalysed? 'JA': 'Nein'}}</button>
+                    </div>
+                    <div *ngSwitchCase="'actions'">
+                        <!-- button matToolTip="Probe entfernen" mat-mini-fab color="warn"
+                            (click)="onDeleteSampleClick(element)">
+                            <mat-icon>delete_forever</mat-icon>
+                        </button -->
+                        <button matTooltip="Analysen editieren" mat-mini-fab color="accent"
+                            (click)="onEditSampleAnalysisClick(element)">
+                            <mat-icon>assignment</mat-icon>
+                        </button>
+                        <button matTooltip="Kommentar editieren" mat-mini-fab color="accent"
+                            (click)="onEditSampleCommentClick(element)">
+                            <mat-icon>comment</mat-icon>
+                        </button>
+                    </div>
+                    <div *ngSwitchCase="'birthdate'">
+                        {{element[col.key] | date: 'dd.MM.yyyy'}}
+                    </div>
+                    <div *ngSwitchDefault>
+                        {{element[col.key]}}
+                    </div>
+                </ng-container>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="pageSizeOptions" showFirstLastButtons></mat-paginator>
+</div>
+<br />
+<br />

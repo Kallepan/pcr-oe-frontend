@@ -1,0 +1,13 @@
+<div class="bottom-panel">
+    <div class="container">
+        <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <ng-container [matColumnDef]="column.key" *ngFor="let column of columnData">
+                <mat-header-cell *matHeaderCellDef [ngStyle]="{'background-color': column.color}"> 
+                    {{column.label }} ({{ column.value }})
+                </mat-header-cell>
+            </ng-container>
+
+            <mat-header-row matRipple *matHeaderRowDef="displayedColumns"></mat-header-row>
+        </mat-table>
+    </div>
+</div>

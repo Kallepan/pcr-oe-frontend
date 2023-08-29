@@ -1,0 +1,56 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: oe-ingress
+  namespace: pcr
+spec:
+  entryPoints:
+  - web
+  - websecure
+  routes:
+  - match: Host(`pcr-inge.labmed.de`) && PathPrefix(`/`)
+    kind: Rule
+    middlewares:
+    - name: redirect-to-https
+      namespace: pcr
+    services:
+    - kind: Service
+      name: oe-service
+      namespace: pcr
+      passHostHeader: true
+      port: 80
+  tls:
+    secretName: labmed-tls
+---
+# This is a dummy service, because we only want to redirect to https
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: oe-redirect
+  namespace: pcr
+spec:
+  entryPoints:
+  - web
+  routes:
+  - match: Host(`pcr-inge.labmed.de`)
+    kind: Rule
+    middlewares:
+    - name: redirect-to-https
+      namespace: pcr
+    services:
+    - kind: Service
+      name: oe-service
+      namespace: pcr
+      passHostHeader: true
+      scheme: http
+      port: 80
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-to-https
+  namespace: pcr
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: true

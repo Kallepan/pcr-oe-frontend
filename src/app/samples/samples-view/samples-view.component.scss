@@ -1,0 +1,32 @@
+.container {
+    max-width: 1400px;
+    margin: auto;
+    margin-top: 1rem;
+
+    .left {
+        width: 45%;
+        float: left;
+    }
+
+    .right {
+        width: 45%;
+        float: right;
+    }
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+
+    .row {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        width: 100%;
+
+        mat-form-field {
+            width: 100%;
+        }
+    }
+}

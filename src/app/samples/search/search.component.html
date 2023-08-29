@@ -1,0 +1,52 @@
+<div class="container">
+    <form [formGroup]="sampleSearch">
+        <mat-form-field class="large-form-field">
+            <mat-label>Tagesnummer eingeben</mat-label>
+            <input matInput placeholder="490000000000" formControlName="sample_id" autocomplete="off">
+            <button mat-icon-button matSuffix (click)="onSubmit()">
+                <mat-icon>search</mat-icon>
+            </button>
+            <mat-error *ngIf="sampleSearch.get('sample_id')?.hasError('pattern')">Bitte nur Zahlen eingeben</mat-error>
+            <mat-error *ngIf="sampleSearch.get('sample_id')?.hasError('required')">
+                Bitte eine Tagesnummer eingeben
+            </mat-error>
+            <mat-error *ngIf="sampleSearch.get('sample_id')?.hasError('maxlength')">
+                Tagesnummer darf nicht länger als 12 Zeichen sein
+            </mat-error>
+        </mat-form-field>
+    </form>
+
+    <div class="row" *ngIf="(sample$ | async) as sample">
+        <div class="sample-data column">
+            <h2>{{sample.displaySampleId}}</h2>
+            <h3>Metadaten</h3>
+            {{sample.full_name}} - {{sample.birthdate}} - {{sample.material}} <br />
+            <h3>Kommentar</h3>
+            {{sample.comment || "Kein Kommentar hinterlegt"}} <br />
+            <h3>Erstellt am/von</h3>
+            {{sample.created_at | date: 'dd.MM.yyyy'}} - {{sample.created_by}}
+        </div>
+        <div class="analysis-data column">
+            <h2>Analysen/Panel</h2>
+            <small>Zum Zurücksetzen der Analyse, diese anklicken</small>
+            <mat-action-list>
+                <button *ngFor="let samplePanel of activeSamplePanels" mat-list-item
+                    (click)="resetSamplePanel(samplePanel)">{{samplePanel.panel.display_name}}
+                    <small>
+                        <div *ngIf="samplePanel.position; else defaultView;">
+                            status:
+                            POS{{samplePanel.position}}-{{samplePanel.device}}-{{samplePanel.run}}-{{samplePanel.run_date
+                            |
+                            date: 'dd.MM.yyyy'}}
+                        </div>
+                        <ng-template #defaultView>
+                            <div>
+                                status: NA
+                            </div>
+                        </ng-template>
+                    </small>
+                </button>
+            </mat-action-list>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="container">
+    <h2>Changelog</h2>
+    <h4>Aktuelle Version: {{currentVersion}}</h4>
+    <mat-accordion [multi]="false">
+        <mat-expansion-panel *ngFor="let versionData of changelogData; let i = index" [expanded]="i === 0">
+            <mat-expansion-panel-header>
+                <mat-panel-title>Version {{versionData.version}}</mat-panel-title>
+                <mat-panel-description>
+                    Veröffentlicht am {{versionData.date}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div *ngFor="let change of versionData.changes" class="change">
+                {{change}}<mat-icon>done</mat-icon>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>

@@ -1,0 +1,11 @@
+<div class="form-container">
+    <form [formGroup]="sampleForm" class="form">
+        <h2 class="title">{{data.sample.sample_id}} editieren</h2>
+        <mat-form-field class="large-form">
+            <textarea matInput placeholder="Kommentar" formControlName="comment"></textarea>
+            <mat-hint><small>Kommentar zur Probe editieren</small></mat-hint>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="confirm()">Submit</button>
+    </form>
+</div>

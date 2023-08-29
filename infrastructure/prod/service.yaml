@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: oe-service
+  namespace: pcr
+  labels:
+    app: pcr-oe-frontend
+    tier: frontend
+spec:
+  selector:
+    app: pcr-oe-frontend
+    tier: frontend
+  ports:
+    - name: web
+      port: 80
+      targetPort: 80
+      protocol: TCP

@@ -1,0 +1,57 @@
+<div class="container">
+    <form action="submit" [formGroup]="queryRunFormGroup" class="form">
+        <mat-form-field appearance="fill" class="larger-input">
+            <mat-label>InGe...</mat-label>
+            <mat-select formControlName="device">
+                <mat-option *ngFor="let device of devices" [value]="device">{{device}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="queryRunFormGroup.get('device')?.hasError('required')">
+                Bitte ein Gerät auswählen
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="larger-input">
+            <mat-label>Lauf...</mat-label>
+            <mat-select formControlName="run">
+                <mat-option *ngFor="let run of runs" [value]="run">{{run}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="queryRunFormGroup.get('run')?.hasError('required')">
+                Bitte einen Lauf auswählen
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Laufdatum</mat-label>
+            <input formControlName="runDate" matInput [matDatepicker]="picker" placeholder="2023-03-22">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="queryRunFormGroup.get('runDate')?.hasError('required')">
+                Bitte ein Datum auswählen
+            </mat-error>
+        </mat-form-field>
+        <button mat-mini-fab color="primary" (click)="onSubmit()" matTooltip="Lauf suchen">
+            <mat-icon>search</mat-icon>
+        </button>
+    </form>
+
+    <mat-action-list *ngIf="(samplePanels$ | async) as samplePanels" class="action-list">
+        <small>Proben anklicken um diese zurueckzusetzen</small>
+        <button mat-raised-button *ngIf="samplePanels.length" (click)="printLabels(samplePanels)">Alle Labels erneut drucken</button>
+        <button *ngFor="let samplePanel of samplePanels" mat-list-item
+            (click)="resetSamplePanel(samplePanel)"><strong>{{samplePanel.sample.displaySampleId}} -
+                {{samplePanel.panel.display_name}}</strong>
+            <small>
+                <div *ngIf="samplePanel.position; else defaultView;">
+                    {{samplePanel.sample.full_name}}, {{samplePanel.sample.material}}
+                    status:
+                    POS{{samplePanel.position}}-{{samplePanel.device}}-{{samplePanel.run}}-{{samplePanel.run_date
+                    |
+                    date: 'dd.MM.yyyy'}}
+                </div>
+                <ng-template #defaultView>
+                    <div>
+                        status: NA
+                    </div>
+                </ng-template>
+            </small>
+        </button>
+    </mat-action-list>
+</div>

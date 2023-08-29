@@ -1,0 +1,20 @@
+<div *ngIf="(panels$ | async) as panels">
+    <div class="form">
+        <mat-form-field class="large-form-field">
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="applyFilter($event)" autocomplete="off" type="text">
+        </mat-form-field>
+    </div>
+    <mat-chip-listbox class="chips" [multiple]="true">
+        <div *ngFor="let panel of panels" >
+            <mat-chip-option [selected]="checkIfSampleContains(panel)" [value]="panel"
+                (click)="toggleAnalysis(panel)" *ngIf="!panel.hidden" [@inOutAnimation]>
+                {{panel.panel_id}}
+            </mat-chip-option>
+        </div>
+    </mat-chip-listbox>
+
+    <div class="actions">
+        <button mat-raised-button color="primary" (click)="onCloseClick()">Schließen</button>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+.row {
+    display: inline-flex;
+    align-items: baseline;
+}
+.dropdown-form {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1rem;
+    align-items: baseline;
+}
+
+mat-form-field {
+    width: 100%;
+}

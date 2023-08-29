@@ -1,0 +1,40 @@
+<form [formGroup]="samplesAnalysisFormGroup" class="dropdown-form">
+    <mat-form-field appearance="fill">
+        <mat-label>InGe...</mat-label>
+        <mat-select formControlName="device">
+            <mat-option *ngFor="let device of devices" [value]="device">{{device}}</mat-option>
+        </mat-select>
+
+        <mat-error *ngIf="samplesAnalysisFormGroup.get('device')?.hasError('required')">
+            Bitte ein Gerät auswählen
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Lauf...</mat-label>
+        <mat-select formControlName="run">
+            <mat-option *ngFor="let run of runs" [value]="run">{{run}}</mat-option>
+        </mat-select>
+
+        <mat-error *ngIf="samplesAnalysisFormGroup.get('run')?.hasError('required')">
+            Bitte einen Lauf auswählen
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Laufdatum</mat-label>
+        <input formControlName="date" matInput [matDatepicker]="picker" placeholder="2023-03-22" [min]="todayDate">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+
+        <mat-error *ngIf="samplesAnalysisFormGroup.get('date')?.hasError('required')">
+            Bitte ein Datum auswählen
+        </mat-error>
+        <mat-error *ngIf="samplesAnalysisFormGroup.get('date')?.hasError('matDatepickerMin')">
+            Datum in der Vergangenheit
+        </mat-error>
+    </mat-form-field>
+    <button mat-raised-button (click)="onSubmit()" color="accent" [disabled]="samplesAnalysisFormGroup.invalid">Export</button>
+</form>
+<app-table-view></app-table-view>
+<br>
+<br>
+<br>

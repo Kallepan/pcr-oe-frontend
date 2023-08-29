@@ -1,0 +1,38 @@
+.container {
+    max-width: 1400px;
+    margin: auto;
+    margin-top: 1rem;
+
+    .left {
+        width: 45%;
+        float: left;
+    }
+
+    .right {
+        width: 45%;
+        float: right;
+    }
+}
+
+.form-container {
+    display: flex;
+    justify-content: left;
+    align-items: baseline;
+    gap: 1rem;
+}
+.large-form-field {
+    width: 100%;
+}
+
+.row {
+    .column {
+        width: 50%;
+        float: left;
+    }
+}
+
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
