@@ -4,11 +4,11 @@
             <form [formGroup]="loginFormGroup" class="form">
                 <mat-form-field>
                     <mat-label>Nutzername</mat-label>
-                    <input matInput formControlName="usernameControl">
+                    <input matInput formControlName="usernameControl" autocomplete="off">
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Passwort</mat-label>
-                    <input matInput type="password" formControlName="passwordControl" (keyup.enter)="submitLogin()">
+                    <input matInput autocomplete="off" type="password" formControlName="passwordControl" (keyup.enter)="submitLogin()">
                 </mat-form-field>
             </form>
             <button mat-raised-button [disabled]="!loginFormGroup.valid" (click)="submitLogin()">Einloggen</button>

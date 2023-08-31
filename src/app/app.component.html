@@ -5,7 +5,7 @@
     <span class="small-spacer"></span>
     <div *ngFor="let navLink of primaryNavLinks">
       <span class="small-spacer"></span>
-      <a mat-button routerLinkActive="is-active" [routerLink]="navLink.routerLink" class="header-link"
+      <a mat-button routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="navLink.routerLink" class="header-link"
         [disabled]="navLink.disabled">{{navLink.display_name}}<br><small>{{navLink.type}}</small></a>
     </div>
     <span class="small-spacer"></span>

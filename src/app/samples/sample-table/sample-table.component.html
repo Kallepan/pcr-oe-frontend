@@ -19,7 +19,7 @@
                         <button mat-raised-button color="accent" (click)="toggleSputasol(element)"
                             matTooltip="Klicken zum Ändern">{{element.sputalysed? 'JA': 'Nein'}}</button>
                     </div>
-                    <div *ngSwitchCase="'actions'">
+                    <div *ngSwitchCase="'actions'" class="actions">
                         <!-- button matToolTip="Probe entfernen" mat-mini-fab color="warn"
                             (click)="onDeleteSampleClick(element)">
                             <mat-icon>delete_forever</mat-icon>
@@ -36,7 +36,7 @@
                     <div *ngSwitchCase="'birthdate'">
                         {{element[col.key] | date: 'dd.MM.yyyy'}}
                     </div>
-                    <div *ngSwitchDefault>
+                    <div *ngSwitchDefault class="wide-text">
                         {{element[col.key]}}
                     </div>
                 </ng-container>

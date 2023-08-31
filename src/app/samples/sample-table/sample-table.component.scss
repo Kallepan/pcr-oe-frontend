@@ -20,3 +20,12 @@
 .large-form-field {
     width: 100%;
 }
+
+.wide-text {
+    word-break: break-all;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-start;
+}

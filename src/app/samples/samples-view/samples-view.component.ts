@@ -174,7 +174,7 @@ export class SamplesViewComponent implements OnInit, OnDestroy {
     this._refreshSamples();
 
     // Refresh samples every 5 seconds
-    this.intervalSubscription = this.interval = interval(5000).subscribe(() => {
+    this.intervalSubscription = this.interval = interval(30000).subscribe(() => {
       this._refreshSamples();
     });
   }

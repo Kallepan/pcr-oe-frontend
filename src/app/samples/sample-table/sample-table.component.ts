@@ -10,9 +10,9 @@ const COLUMNS = [
   {key: "panels", label: "Panels/Analysen", },
   {key: "birthdate", label: "Geburtsdatum", },
   {key: "sputalysed", label: "Sputasol", },
-  {key: "actions", label: "Aktionen", },
   {key: "material", label: "Material", },
   {key: "comment", label: "Kommentar", },
+  {key: "actions", label: "Aktionen", },
 ]
 
 export type EditSampleEmitter = {
