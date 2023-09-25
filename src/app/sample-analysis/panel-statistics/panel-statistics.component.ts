@@ -54,7 +54,7 @@ export class PanelStatisticsComponent implements OnInit, OnDestroy {
   private _refreshStats() {
     this._samplesAnalysesAPIService.getStatistics().subscribe({
       next: (response) => {
-        const stats: Statistic[] | null = response.body;
+        const stats: Statistic[] | null = response.body?.data;
         if (stats === null) {
           this._messageService.simpleWarnMessage(ERRORS.ERROR_API_GET_STATISTICS);
           return;

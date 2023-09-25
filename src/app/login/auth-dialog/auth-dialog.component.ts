@@ -31,16 +31,6 @@ export class AuthDialogComponent {
     })
   }
 
-  submitRegister() {
-    const username = this.registerFormGroup.controls["usernameRegisterControl"].value;
-    const password = this.registerFormGroup.controls["newPasswordRegisterControl"].value;
-    const first_name = this.registerFormGroup.controls["firstNameControl"].value.toLowerCase();
-    const last_name = this.registerFormGroup.controls["lastNameControl"].value.toLowerCase();
-    const email = this.registerFormGroup.controls["emailControl"].value.toLowerCase();
-
-    const success = this.authService.register(username, password, first_name, last_name, email, this.dialogRef);
-  }
-
   submitLogin() {
     const username = this.loginFormGroup.controls["usernameControl"].value;
     const password = this.loginFormGroup.controls["passwordControl"].value;

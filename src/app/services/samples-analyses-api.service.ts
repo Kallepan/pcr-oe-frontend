@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { CONSTANTS } from '../config/constants';
 import { ExportData } from '../sample-analysis/sample-analysis-form/sample-analysis-form.component';
+import { APIResponse } from '../types';
 
 const SAMPLE_ANALYSES_API_ENDPOINT = `${CONSTANTS.GLOBAL_API_ENDPOINT}/samplespanels`;
 const PRINTER_API_ENDPOINT = `${CONSTANTS.GLOBAL_API_ENDPOINT}/printer`;
@@ -15,7 +16,7 @@ export class SamplesAnalysesAPIService {
 
   constructor(private http: HttpClient) { }
 
-  getStatistics(): Observable<HttpResponse<any>> {
+  getStatistics(): Observable<HttpResponse<APIResponse>> {
     const url = `${SAMPLE_ANALYSES_API_ENDPOINT}/stats`;
 
     const httpOptions = {
@@ -25,10 +26,12 @@ export class SamplesAnalysesAPIService {
       })
     };
 
-    return this.http.get(url, httpOptions);
+    return this.http.get(url, httpOptions).pipe(
+      map((resp) => resp as HttpResponse<APIResponse>)
+    );
   }
 
-  printLabels(elements: any[]): Observable<HttpResponse<any>> {
+  printLabels(elements: any[]): Observable<HttpResponse<APIResponse>> {
     const url = PRINTER_API_ENDPOINT;
 
     const data = {
@@ -42,10 +45,12 @@ export class SamplesAnalysesAPIService {
       }),
     };
 
-    return this.http.post(url, data, httpOptions);
+    return this.http.post(url, data, httpOptions).pipe(
+      map((resp) => resp as HttpResponse<APIResponse>),
+    );
   }
 
-  getSamplesAnalyses(): Observable<HttpResponse<any>> {
+  getSamplesAnalyses(): Observable<HttpResponse<APIResponse>> {
     const url = `${SAMPLE_ANALYSES_API_ENDPOINT}`;
     const httpOptions = {
       observe: 'response' as const,
@@ -54,10 +59,12 @@ export class SamplesAnalysesAPIService {
       })
     };
 
-    return this.http.get(url, httpOptions);
+    return this.http.get(url, httpOptions).pipe(
+      map((resp) => resp as HttpResponse<APIResponse>)
+    );
   }
 
-  postSamplesAnalyses(sample_id: string, panel_id: string): Observable<HttpResponse<any>> {
+  postSamplesAnalyses(sample_id: string, panel_id: string): Observable<HttpResponse<APIResponse>> {
     const url = `${SAMPLE_ANALYSES_API_ENDPOINT}`;
     const data = {
       sample_id: sample_id,
@@ -70,10 +77,12 @@ export class SamplesAnalysesAPIService {
       })
     };
 
-    return this.http.post(url, data, httpOptions);
+    return this.http.post(url, data, httpOptions).pipe(
+      map((resp) => resp as HttpResponse<APIResponse>)
+    );
   }
 
-  deleteSamplesAnalyses(sample_id: string, panel_id: string): Observable<HttpResponse<any>> {
+  deleteSamplesAnalyses(sample_id: string, panel_id: string): Observable<HttpResponse<APIResponse>> {
     const url = `${SAMPLE_ANALYSES_API_ENDPOINT}/${sample_id}/${panel_id}`;
     const httpOptions = {
       observe: 'response' as const,
@@ -82,7 +91,9 @@ export class SamplesAnalysesAPIService {
       }),
     };
 
-    return this.http.delete(url, httpOptions);
+    return this.http.delete(url, httpOptions).pipe(
+      map((resp) => resp as HttpResponse<APIResponse>)
+    );
   }
 
   createRun(exportData: ExportData): Observable<HttpResponse<any>> {
@@ -106,7 +117,7 @@ export class SamplesAnalysesAPIService {
     return this.http.post(url, data, httpOptions);
   }
 
-  getSamplesAnalysesForSample(sample_id: string): Observable<HttpResponse<any>> {
+  getSamplesAnalysesForSample(sample_id: string): Observable<HttpResponse<APIResponse>> {
     const url = `${SAMPLE_ANALYSES_API_ENDPOINT}`;
 
     const httpOptions = {
@@ -121,10 +132,12 @@ export class SamplesAnalysesAPIService {
       }),
     };
 
-    return this.http.get(url, httpOptions);
+    return this.http.get(url, httpOptions).pipe(
+      map((resp) => resp as HttpResponse<APIResponse>)
+    );
   }
 
-  getSamplesAnalysesForRun(run_date: string, run: string, device: string): Observable<HttpResponse<any>> {
+  getSamplesAnalysesForRun(run_date: string, run: string, device: string): Observable<HttpResponse<APIResponse>> {
     const url = `${SAMPLE_ANALYSES_API_ENDPOINT}`;
 
     const httpOptions = {
@@ -141,10 +154,12 @@ export class SamplesAnalysesAPIService {
       }),
     };
 
-    return this.http.get(url, httpOptions);
+    return this.http.get(url, httpOptions).pipe(
+      map((resp) => resp as HttpResponse<APIResponse>)
+    );
   }
 
-  resetSamplePanel(sampleId: string, panelId: string): Observable<HttpResponse<any>> {
+  resetSamplePanel(sampleId: string, panelId: string): Observable<HttpResponse<APIResponse>> {
     const url = `${RESET_SAMPLE_PANEL_ENDPOINT}`;
 
     const data = {
@@ -159,6 +174,8 @@ export class SamplesAnalysesAPIService {
       }),
     };
 
-    return this.http.post(url, data, httpOptions);
+    return this.http.post(url, data, httpOptions).pipe(
+      map((resp) => resp as HttpResponse<APIResponse>)
+    );
   }
 }

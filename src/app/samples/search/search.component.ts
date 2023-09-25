@@ -52,7 +52,7 @@ export class SearchComponent {
     const sampleId = this.sampleSearch.value.sample_id;
     this._samplesAPIService.getSampleById(sampleId).subscribe({
       next: (resp) => {
-        const samples = resp.body as Sample[];
+        const samples = resp.body?.data || [];
         if (samples.length == 0) {
           this._messageService.simpleWarnMessage(`Keine Probe mit der Suche ${sampleId} gefunden.`);
           return;
@@ -74,7 +74,7 @@ export class SearchComponent {
           next: (resp) => {
             if (!resp.body) return;
             
-            const samplePanels: SamplePanel[] = resp.body || [];
+            const samplePanels: SamplePanel[] = resp.body.data;
             this.activeSamplePanels = samplePanels;
           }
         });

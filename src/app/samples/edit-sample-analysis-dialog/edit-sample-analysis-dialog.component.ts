@@ -63,7 +63,7 @@ export class EditSampleAnalysisDialogComponent implements OnInit, OnDestroy {
     // This is to make sure the user cant select associated analyses.
     this._samplesAPIService.getPanels().subscribe({
       next: (resp) => {
-        const panels: Panel[] = resp.body || [];
+        const panels: Panel[] = resp.body?.data || [];
         this._panels$.next(panels.map(p => { p.hidden = false; return p; }));
 
         if (!this.data?.sample) {
@@ -78,7 +78,7 @@ export class EditSampleAnalysisDialogComponent implements OnInit, OnDestroy {
           }),
         ).subscribe({
           next: (resp) => {
-            const samplePanels: SamplePanel[] = resp.body || [];
+            const samplePanels: SamplePanel[] = resp.body?.data || [];
             const panelsFromSample: Panel[] = samplePanels.map(sp => sp.panel);
             this._activePanelsForSample.next(panelsFromSample);
           }

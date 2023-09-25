@@ -86,8 +86,8 @@ export class QueryRunComponent {
       }),
     ).subscribe({
       next: (response) => {
-        const samplePanels: SamplePanel[] = response.body as SamplePanel[] || [];
-
+        const samplePanels: SamplePanel[] = response.body?.data;
+        
         this._samplePanels$.next(samplePanels);
       },
     })

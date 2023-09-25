@@ -74,7 +74,7 @@ export class SamplesViewComponent implements OnInit, OnDestroy {
   private _refreshSamples() {
     this._samplesAPIService.getSamples().subscribe({
       next: (resp) => {
-        const samples: Sample[] = resp.body;
+        const samples: Sample[] = resp.body?.data || []; // Get samples from response
         this._samples$.next(samples);
       }
     })
@@ -106,7 +106,12 @@ export class SamplesViewComponent implements OnInit, OnDestroy {
           const checkedAnalyses: Panel[] = choice;
 
           checkedAnalyses.forEach((analysis: Panel) => {
-            this._samplesAnalysisAPIService.postSamplesAnalyses(resp.body.sample_id, analysis.panel_id).subscribe({
+            const sampleID = resp.body?.data?.sample_id;
+            if (!sampleID) {
+              this._messageService.simpleWarnMessage(ERRORS.ERROR_NO_SAMPLE);
+              return;
+            }
+            this._samplesAnalysisAPIService.postSamplesAnalyses(sampleID, analysis.panel_id).subscribe({
               next: (resp) => {
                 // Reset and patch form
                 this._messageService.goodMessage("Analysen hinzugefügt.");

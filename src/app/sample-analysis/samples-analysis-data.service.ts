@@ -60,7 +60,7 @@ export class SamplesAnalysisDataService {
       }),
     ).subscribe({
       next: (response) => {
-        const samplesAnalyses: SamplePanel[] | null = response.body;
+        const samplesAnalyses: SamplePanel[] | null = response.body?.data;
         this.loading = false;
         if (!samplesAnalyses) { this._inactiveSamplesAnalyses.next([]); return; }
 
@@ -79,7 +79,7 @@ export class SamplesAnalysisDataService {
       switchMap(() => this._samplesAnalysisAPIService.getSamplesAnalyses())
     ).subscribe({
       next: (response) => {
-        const samplesAnalyses: SamplePanel[] | null = response.body;
+        const samplesAnalyses: SamplePanel[] | null = response.body?.data;
         if (!samplesAnalyses) return;
 
         const activeElements = this._activeElements.getValue().filter(activeElement => !isControl(activeElement)) as SamplePanel[];
