@@ -41,7 +41,14 @@ testem.log
 .DS_Store
 Thumbs.db
 
+# Env files
 *.env
 
-# kustomize
+# Angular
+/dist
+/node_modules
+npm-debug.log
+.angular
+
+# Kustomize
 run.yaml

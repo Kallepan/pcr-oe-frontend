@@ -1,21 +1,21 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: ingress
+  name: inge-ingress
   namespace: pcr
 spec:
   entryPoints:
   - web
   - websecure
   routes:
-  - match: Host(`pcr-oe.dev-k8s.labmed.de`) && PathPrefix(`/`)
+  - match: Host(`pcr-inge.dev-k8s.labmed.de`) && PathPrefix(`/`)
     kind: Rule
     middlewares:
     - name: redirect-to-https
       namespace: pcr
     services:
     - kind: Service
-      name: oe-service
+      name: inge-service
       namespace: pcr
       passHostHeader: true
       port: 80

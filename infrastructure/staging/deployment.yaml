@@ -1,27 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pcr-oe-frontend
+  name: pcr-inge
   namespace: pcr
   labels:
-    app: pcr-oe-frontend
+    app: pcr-inge
     tier: frontend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: pcr-oe-frontend
+      app: pcr-inge
   template:
     metadata:
       labels:
-        app: pcr-oe-frontend
+        app: pcr-inge
         tier: frontend
     spec:
       imagePullSecrets:
       - name: regcred
       containers:
-        - name: pcr-oe-frontend
-          image: kallepan/pcr-oe-frontend:dev
+        - name: pcr-inge
+          image: kallepan/pcr-inge
           imagePullPolicy: Always
           ports:
             - containerPort: 80
