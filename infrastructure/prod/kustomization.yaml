@@ -7,6 +7,6 @@ resources:
   - ingress.yaml
 
 images:
-  - name: kallepan/pcr-oe-frontend
-    newName: kallepan/pcr-oe-frontend
+  - name: kallepan/pcr-inge
+    newName: kallepan/pcr-inge
     newTag: IMAGE_TAG

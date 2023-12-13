@@ -1,7 +1,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: oe-ingress
+  name: inge-ingress
   namespace: pcr
 spec:
   entryPoints:
@@ -15,7 +15,7 @@ spec:
       namespace: pcr
     services:
     - kind: Service
-      name: oe-service
+      name: inge-service
       namespace: pcr
       passHostHeader: true
       port: 80
@@ -26,7 +26,7 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: oe-redirect
+  name: inge-redirect
   namespace: pcr
 spec:
   entryPoints:
@@ -39,7 +39,7 @@ spec:
       namespace: pcr
     services:
     - kind: Service
-      name: oe-service
+      name: inge-service
       namespace: pcr
       passHostHeader: true
       scheme: http
