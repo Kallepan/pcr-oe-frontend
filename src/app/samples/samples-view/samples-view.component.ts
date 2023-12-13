@@ -40,6 +40,7 @@ export class SamplesViewComponent implements OnInit, OnDestroy {
   interval: any | undefined;
 
   intervalSubscription: Subscription | undefined;
+  materialFormSubscription: Subscription | undefined;
 
   samples$ = this._samples$.asObservable().pipe(
     map((samples: Sample[] | null) => {
@@ -182,9 +183,17 @@ export class SamplesViewComponent implements OnInit, OnDestroy {
     this.intervalSubscription = this.interval = interval(30000).subscribe(() => {
       this._refreshSamples();
     });
+
+    const materialControl = this.sampleForm.get('material');
+    this.materialFormSubscription = materialControl?.valueChanges.pipe(
+      map((value: string) => value.toUpperCase()),
+    ).subscribe((value: string) => {
+      materialControl?.setValue(value, { emitEvent: false });
+    });
   }
 
   ngOnDestroy(): void {
     this.intervalSubscription?.unsubscribe();
+    this.materialFormSubscription?.unsubscribe();
   }
 }
