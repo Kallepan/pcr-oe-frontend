@@ -3,12 +3,13 @@
       <a class="header-title" routerLink="/">{{title}}</a>
     </span>
     <span class="small-spacer"></span>
-    <div *ngFor="let navLink of primaryNavLinks">
+    <ng-container *ngFor="let navLink of primaryNavLinks">
       <span class="small-spacer"></span>
       <a mat-button routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="navLink.routerLink" class="header-link"
         [disabled]="navLink.disabled">{{navLink.display_name}}<br><small>{{navLink.type}}</small></a>
-    </div>
-    <span class="small-spacer"></span>
+      </ng-container>
+      <span class="small-spacer"></span>
+      <a mat-button href="http://rms.mibi" target="_blank" class="header-link">Reagenzien</a>
     <span class="wide-spacer"></span>
     <app-login></app-login>
   </mat-toolbar>
